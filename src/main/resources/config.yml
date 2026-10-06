@@ -1,0 +1,201 @@
+# ╔══════════════════════════════════════════════════════════╗
+# ║                    SimpleAuction                         ║
+# ║                  Конфигурация аукциона                   ║
+# ╚══════════════════════════════════════════════════════════╝
+
+# ────────────── ⏳ ВРЕМЯ ЛОТОВ ──────────────
+# Сколько часов лот висит на аукционе
+active-hours: 24
+# Сколько часов истёкший лот ждёт владельца, потом удаляется навсегда
+expired-hours: 24
+
+# ────────────── 📦 ЛИМИТЫ ЛОТОВ ──────────────
+# Максимум одновременно активных лотов у обычного игрока
+max-listings: 2
+
+# Лимиты слотов по привилегиям.
+# Выдаются через пермишен: simpleauction.slots.<группа>
+# Если у игрока несколько привилегий, берётся наибольший лимит.
+slots:
+  default: 2
+  groups:
+    khrest: 5
+    dvorean: 7
+    boyar: 10
+    voivod: 17
+    jester: 20
+    gosudar: 40
+    velmozh: 50
+    palatin: 60
+    tsarev: 70
+
+# ────────────── 💰 ЭКОНОМИКА ──────────────
+# Комиссия аукциона в процентах (продавец получает цену минус комиссия)
+commission-percent: 5
+# Ограничения цены
+min-price: 1
+max-price: 1000000000
+
+# ────────────── 🔑 ПРАВА (PERMISSIONS) ──────────────
+# Для администратора (OP) достаточно: simpleauction.*
+permissions:
+  all: 'simpleauction.*'
+  use: 'simpleauction.use'
+  sell: 'simpleauction.sell'
+  buy: 'simpleauction.buy'
+  cancel: 'simpleauction.cancel'
+  expired: 'simpleauction.expired'
+  slots-book: 'simpleauction.slots'
+  reload: 'simpleauction.reload'
+  # Администрирование: снимать чужие лоты (Shift+ПКМ), обход лимитов
+  admin: 'simpleauction.admin'
+  slots-default: 'simpleauction.slots.default'
+  slots-khrest: 'simpleauction.slots.khrest'
+  slots-dvorean: 'simpleauction.slots.dvorean'
+  slots-boyar: 'simpleauction.slots.boyar'
+  slots-voivod: 'simpleauction.slots.voivod'
+  slots-jester: 'simpleauction.slots.jester'
+  slots-gosudar: 'simpleauction.slots.gosudar'
+  slots-velmozh: 'simpleauction.slots.velmozh'
+  slots-palatin: 'simpleauction.slots.palatin'
+  slots-tsarev: 'simpleauction.slots.tsarev'
+
+# ────────────── 🖼 РАСКЛАДКА МЕНЮ ──────────────
+#   45        46  47  48   49   50  51  52        53
+# [Книга] [ ] [ ] [ ◀ ] [🌻] [ ▶ ] [ ] [ ] [Истёкшие]
+gui:
+  filler:
+    enabled: true
+    material: GRAY_STAINED_GLASS_PANE
+    name: ' '
+  prev-button:
+    slot: 48
+    material: ARROW
+  refresh-button:
+    slot: 49
+    material: SUNFLOWER
+    glow: true
+    name: '&e&l☀ Обновить'
+    lore:
+      - '&7Страница: &f{page}&7/&f{pages}'
+      - '&7Всего лотов: &f{total}'
+      - ''
+      - '&e▶ Нажми, чтобы обновить список'
+  next-button:
+    slot: 50
+    material: ARROW
+  expired-button:
+    slot: 53
+    material: CHEST
+    glow: false
+  back-button:
+    slot: 49
+    material: BARRIER
+
+# ────────────── 📖 КНИГА СО СЛОТАМИ ──────────────
+slots-book:
+  slot: 45
+  material: ENCHANTED_BOOK
+  glow: true
+  name: '&6&l✦ Лимиты слотов &6&l✦'
+  lore:
+    - '&8━━━━━━━━━━━━━━━━━━'
+    - '&7Сколько лотов можно выставить'
+    - '&7одновременно на аукционе:'
+    - ''
+    - '&f&lИгрок &8» &f2 слота'
+    - '&8&lKhrest &8» &f5 слотов'
+    - '&3&lDvorean &8» &f7 слотов'
+    - '&c&lBoyar &8» &f10 слотов'
+    - '&a&lVoivod &8» &f17 слотов'
+    - '&1&lJester &8» &f20 слотов'
+    - '&5&lGosudar &8» &f40 слотов'
+    - '&2&lVelmozh &8» &f50 слотов'
+    - '&4&lPalatin &8» &f60 слотов'
+    - '&6&lTsarev &8» &f70 слотов'
+    - '&8━━━━━━━━━━━━━━━━━━'
+    - '&7Твой лимит: &6{max} &8| &7Занято: &e{used}'
+    - ''
+    - '&e▶ Нажми, чтобы открыть книгу'
+  title: '&6Слоты привилегий'
+  author: '&eАукцион'
+  pages:
+    - |-
+      &6&l✦ &8&lАУКЦИОН &6&l✦
+      &8━━━━━━━━━━━━━━━
+
+      &0Сколько лотов можно
+      &0выставить одновременно:
+
+      &8&l▎ &0Игрок &8» &02 слота
+
+      &8━━━━━━━━━━━━━━━
+      &0Привилегии на
+      &0следующих страницах
+    - |-
+      &6&l✦ &8&lПРИВИЛЕГИИ &6&l✦
+      &8━━━━━━━━━━━━━━━
+
+      &8&lKhrest &0» &85 слотов
+      &3&lDvorean &0» &37 слотов
+      &c&lBoyar &0» &c10 слотов
+      &a&lVoivod &0» &a17 слотов
+      &1&lJester &0» &120 слотов
+
+      &8━━━━━━━━━━━━━━━
+    - |-
+      &6&l✦ &8&lПРИВИЛЕГИИ &6&l✦
+      &8━━━━━━━━━━━━━━━
+
+      &5&lGosudar &0» &540 слотов
+      &2&lVelmozh &0» &250 слотов
+      &4&lPalatin &0» &460 слотов
+      &6&lTsarev &0» &670 слотов
+
+      &8━━━━━━━━━━━━━━━
+      &0Купить привилегию
+      &0можно у администрации
+
+# ────────────── 💬 СООБЩЕНИЯ ──────────────
+messages:
+  only-player: '&8[&6Аукцион&8] &c✕ Только для игроков'
+  no-permission: '&8[&6Аукцион&8] &c✕ У тебя нет прав'
+  no-economy: '&8[&6Аукцион&8] &c✕ Экономика недоступна, сообщи администрации'
+  reloaded: '&8[&6Аукцион&8] &a✓ Конфиг перезагружен'
+  usage: ' &6➥ &fИспользование: &e/ah &8| &e/ah sell <цена> &8| &e/ah expired &8| &e/ah slots'
+  usage-sell: ' &6➥ &fИспользование: &e/ah sell <цена>'
+
+  bad-price: '&8[&6Аукцион&8] &c✕ Некорректная цена'
+  price-limits: '&8[&6Аукцион&8] &c✕ Цена должна быть от &f{min} &cдо &f{max}'
+  no-item: '&8[&6Аукцион&8] &c✕ Возьми предмет в руку'
+  limit-reached: '&8[&6Аукцион&8] &c✕ Лимит лотов: &f{max} &8(&7привилегии дают больше слотов: &e/ah slots&8)'
+  listed: '&8[&6Аукцион&8] &a✓ Выставлено: &f{item} &aза &6{price}'
+
+  lot-gone: '&8[&6Аукцион&8] &c✕ Этот лот уже недоступен'
+  no-money: '&8[&6Аукцион&8] &c✕ Не хватает денег, нужно &6{price}'
+  no-space: '&8[&6Аукцион&8] &c✕ В инвентаре нет места'
+  bought: '&8[&6Аукцион&8] &a✓ Куплено: &f{item} &aза &6{price}'
+  sold: '&8[&6Аукцион&8] &e{player} &aкупил &f{item} &aи ты получил &6{money}'
+  cancelled: '&8[&6Аукцион&8] &a✓ Лот снят с продажи: &f{item}'
+  claimed: '&8[&6Аукцион&8] &a✓ Ты забрал: &f{item}'
+  expired-notify: '&8[&6Аукцион&8] &eУ тебя &f{count} &eистёкших лотов. Забери: &f/ah expired'
+
+  slots-info: '&8[&6Аукцион&8] &7Твой лимит лотов: &6{max} &8| &7Занято: &e{used}'
+
+  gui-title-main: '&8&l✦ &6&lАукцион &7({page}/{pages}) &8&l✦'
+  gui-title-expired: '&8&l✦ &c&lИстёкшие товары &7({page}/{pages}) &8&l✦'
+  btn-prev: '&e&l◀ &eСтраница {prev}'
+  btn-next: '&eСтраница {next} &e&l▶'
+  btn-refresh: '&e&l☀ Обновить'
+  refreshed: '&8[&6Аукцион&8] &a✓ Список лотов обновлён'
+  no-prev-page: '&8[&6Аукцион&8] &c✕ Это первая страница'
+  no-next-page: '&8[&6Аукцион&8] &c✕ Это последняя страница'
+  btn-expired: '&6&l⌛ Истёкшие товары &7({count})'
+  btn-back: '&6&l↩ Назад к аукциону'
+  lore-price: '&7Цена: &6&l{price}'
+  lore-seller: '&7Продавец: &f{player}'
+  lore-time-left: '&7Осталось: &f{time}'
+  lore-delete-in: '&7Удалится через: &c{time}'
+  lore-click-buy: '&a&l▶ &aНажми, чтобы купить'
+  lore-click-cancel: '&e&l▶ &eЭто твой лот. Нажми, чтобы снять'
+  lore-click-claim: '&a&l▶ &aНажми, чтобы забрать'

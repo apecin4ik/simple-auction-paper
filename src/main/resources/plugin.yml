@@ -1,0 +1,70 @@
+name: SimpleAuction
+version: 1.0.0
+main: ru.simpleauction.SimpleAuction
+api-version: '1.20'
+depend: [Vault]
+description: Простой аукцион с лимитами слотов по привилегиям
+commands:
+  ah:
+    description: Аукцион
+    aliases: [auction, auc]
+    usage: /ah
+permissions:
+  simpleauction.*:
+    description: Все права аукциона
+    default: op
+    children:
+      simpleauction.use: true
+      simpleauction.sell: true
+      simpleauction.buy: true
+      simpleauction.cancel: true
+      simpleauction.expired: true
+      simpleauction.slots: true
+      simpleauction.reload: true
+      simpleauction.admin: true
+      simpleauction.slots.default: true
+      simpleauction.slots.khrest: true
+      simpleauction.slots.dvorean: true
+      simpleauction.slots.boyar: true
+      simpleauction.slots.voivod: true
+      simpleauction.slots.jester: true
+      simpleauction.slots.gosudar: true
+      simpleauction.slots.velmozh: true
+      simpleauction.slots.palatin: true
+      simpleauction.slots.tsarev: true
+  simpleauction.use:
+    default: true
+  simpleauction.sell:
+    default: true
+  simpleauction.buy:
+    default: true
+  simpleauction.cancel:
+    default: true
+  simpleauction.expired:
+    default: true
+  simpleauction.slots:
+    default: true
+  simpleauction.reload:
+    default: op
+  simpleauction.admin:
+    default: op
+  simpleauction.slots.default:
+    default: true
+  simpleauction.slots.khrest:
+    default: false
+  simpleauction.slots.dvorean:
+    default: false
+  simpleauction.slots.boyar:
+    default: false
+  simpleauction.slots.voivod:
+    default: false
+  simpleauction.slots.jester:
+    default: false
+  simpleauction.slots.gosudar:
+    default: false
+  simpleauction.slots.velmozh:
+    default: false
+  simpleauction.slots.palatin:
+    default: false
+  simpleauction.slots.tsarev:
+    default: false
